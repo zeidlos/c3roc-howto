@@ -1,0 +1,17 @@
+version: '3'
+services:
+    web:
+        container_name: 'c3roc-howto'
+        hostname: howto.c3roc.de
+        image: nginx:alpine
+        volumes:
+            - .:/usr/share/nginx/html:ro
+        environment:
+            - VIRTUAL_HOST=howto.c3roc.de
+            - LETSENCRYPT_HOST=howto.c3roc.de
+            - LETSENCRYPT_EMAIL=jz@chaos.li
+
+networks:
+    default:
+        external:
+            name: webproxy

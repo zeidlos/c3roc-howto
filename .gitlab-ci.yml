@@ -1,0 +1,22 @@
+stages:
+  - deploy
+
+deploy_staging:
+  stage: deploy
+  image: kroniak/ssh-client:3.6
+  script:
+    # add the server as a known host
+    - mkdir ~/.ssh
+    - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    # add ssh key stored in SSH_PRIVATE_KEY variable to the agent store
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    # stop container, remove image.
+    - ssh deployer@itpunks.net "cd /home/web/howto.c3roc.de"
+    - ssh deployer@itpunks.net "git pull chaos master" || true
+    - ssh deployer@itpunks.net "docker-compose stop" || true
+    # start new container
+    - ssh deployer@itpunks.net "docker-compose up -d" || true
+  only:
+    - branches
