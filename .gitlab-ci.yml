@@ -14,6 +14,7 @@ deploy_staging:
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     # stop container, remove image.
+    - ssh deployer@git.chaos.li -vvvvv
     - ssh deployer@git.chaos.li "cd /home/web/howto.c3roc.de"
     - ssh deployer@git.chaos.li "git pull chaos master" || true
     - ssh deployer@git.chaos.li "docker-compose stop" || true
