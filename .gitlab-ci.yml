@@ -13,6 +13,7 @@ deploy_staging:
     - chmod 644 ~/.ssh/known_hosts
     # add ssh key stored in SSH_PRIVATE_KEY variable to the agent store
     - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
     - ssh-add <(echo "$SSH_PRIVATE_KEY" | tr -d '\r')
     - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 400 ~/.ssh/id_rsa
