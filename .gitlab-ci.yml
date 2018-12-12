@@ -16,7 +16,7 @@ deploy_staging:
     - ssh-add <(echo "$SSH_PRIVATE_KEY" | tr -d '\r')
     - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 400 ~/.ssh/id_rsa
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    # - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     # stop container, remove image.
     - ssh deployer@git.chaos.li -vvvvv
     - ssh deployer@git.chaos.li "cd /home/web/howto.c3roc.de"
