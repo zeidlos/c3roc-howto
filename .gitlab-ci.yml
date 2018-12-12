@@ -15,7 +15,7 @@ deploy_staging:
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
     - ssh-add <(echo "$SSH_PRIVATE_KEY" | tr -d '\r')
-    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    #- echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 400 ~/.ssh/id_rsa
     # - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     # stop container, remove image.
