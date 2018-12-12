@@ -5,7 +5,7 @@ services:
         hostname: howto.c3roc.de
         image: nginx:alpine
         volumes:
-            - .:/usr/share/nginx/html:ro
+            - ./html:/usr/share/nginx/html:ro
         environment:
             - VIRTUAL_HOST=howto.c3roc.de
             - LETSENCRYPT_HOST=howto.c3roc.de
