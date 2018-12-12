@@ -13,7 +13,7 @@ deploy_staging:
     # add ssh key stored in SSH_PRIVATE_KEY variable to the agent store
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    # - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     # stop container, remove image.
     - ssh -p 2342 deployer@git.chaos.li -vvvvv
     - ssh -p 2342 deployer@git.chaos.li "cd /home/web/howto.c3roc.de"
