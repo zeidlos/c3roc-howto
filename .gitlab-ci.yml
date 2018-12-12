@@ -15,9 +15,9 @@ deploy_staging:
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     # stop container, remove image.
-    - ssh -p 2342 deployer@git.chaos.li "cd /home/html/howto.c3roc.de && git pull chaos master" || true
-    - ssh -p 2342 deployer@git.chaos.li "docker-compose -f /home/html/howto.c3roc.de/docker-compose.yml stop" || true
+    - ssh -p 2342 deployer@git.chaos.li "cd /home/html/howto.c3roc.de && git pull chaos master"
+    - ssh -p 2342 deployer@git.chaos.li "docker-compose -f /home/html/howto.c3roc.de/docker-compose.yml stop"
     # start new container
-    - ssh -p 2342 deployer@git.chaos.li "docker-compose -f /home/html/howto.c3roc.de/docker-compose.yml up -d" || true
+    - ssh -p 2342 deployer@git.chaos.li "docker-compose -f /home/html/howto.c3roc.de/docker-compose.yml up -d"
   only:
     - branches
