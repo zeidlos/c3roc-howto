@@ -5,6 +5,7 @@ deploy_staging:
   stage: deploy
   image: kroniak/ssh-client:3.6
   script:
+    - 'which ssh-agent || ( apk add openssh-client -y )'
     # add the server as a known host
     - mkdir ~/.ssh
     - echo "$SSH_KNOWN_HOSTS"
@@ -12,7 +13,7 @@ deploy_staging:
     - chmod 644 ~/.ssh/known_hosts
     # add ssh key stored in SSH_PRIVATE_KEY variable to the agent store
     - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - ssh-add <(echo "$SSH_PRIVATE_KEY" | tr -d '\r')
     - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 400 ~/.ssh/id_rsa
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
